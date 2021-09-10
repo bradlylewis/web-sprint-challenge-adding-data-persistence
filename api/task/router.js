@@ -1,17 +1,29 @@
 const express = require('express')
-const Tasks = require('./model')
+const Task = require('./model')
 const router = express.Router()
 
-router.get('/', (req, res, next) => {
-    res.json({ message: "Tasks get!"})
-    next()
+router.get('/', async (req, res) => {
+    try {
+        const data = await Task.getAll()
+        const newData = data.map(project => {
+            return {...project, completed:(project.completed ? true : false)}
+        })
+        res.status(200).json(newData)
+    } catch(err) {
+        res.status(500).json({message:err.message})
+    }
 })
 
-router.post('/', (req, res, next) => {
-    res.json({ message: "Tasks post!"})
-    next()
+router.post('/', async (req, res) => {
+    try {
+        const data = await Task.create(req.body)
+        const newData = {...data, completed:(data.completed ? true : false)}
+        res.status(201).json(newData)
+    } catch(err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
 })
-
-
 
 module.exports = router;
