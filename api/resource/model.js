@@ -1,7 +1,7 @@
 const db = require('../../data/dbConfig')
 
 
-// RETRIEVES ALL THE PROJECTS
+// RETRIEVES ALL THE RESOURCES
 function getAll() {
     return db('resources')
 }
@@ -13,6 +13,7 @@ const getById = async (id) => {
   }
 
 // CREATING AN ENTRY IN THE DATABASE
+// RETURNS THE ENTRY AS A RESPONSE
 const create = async (resource) => {
     const [id] = await db('resources').insert(resource)
     return getById
