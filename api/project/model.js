@@ -2,9 +2,8 @@ const db = require('../../data/dbConfig')
 
 
 // RETRIEVES ALL THE PROJECTS
-async function getAll() {
-    const projects = await db('projects')
-    return projects
+function getAll() {
+    return db('projects')
 }
 
 // FINDING BY SPECIFIC ID
